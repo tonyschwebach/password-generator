@@ -79,8 +79,6 @@ function generatePassword(){
     return "You must use characters in your password. Please click ok on at least one character group to generate another password.";
   }
 
-  
-
 
   // for loop over array of possible characters for password length -3 number of times. last 3 characters will be reserved to ensure each requested character type is used
   for(var j = 0; j < passwordLength-3; j++) {
