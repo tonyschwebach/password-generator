@@ -30,17 +30,10 @@ function generatePassword(){
   var specialChars = ["!","@","#","$","%","^","&","*","(",")"]; // list of special characters in string type
 
   // prompt user for variable for password length 8-128 characters
-  var passwordLength = 12;
-
-
-  // while (passwordLength < 8 || passwordLength >128 || typeof passwordLength !== "number") {
-  //   var passwordLength = prompt("How many characters long would you like your password? Please enter a number between 8 and 128.");
-  //   if(typeof parseInt(passwordLength) === "number"){
-  //     return passwordLength;
-  //   }
-  //   console.log(passwordLength);
-  //   console.log(typeof passwordLength);
-  // }
+  var passwordLength = 0;
+  while (passwordLength < 8 || passwordLength >128 || isNaN(passwordLength) ) {
+    var passwordLength = prompt("How many characters long would you like your password? Please enter a number between 8 and 128.");
+  }
 
 
 
@@ -85,8 +78,8 @@ function generatePassword(){
     addCharsToPossible(specialChars);
   }
 
-  // feedback to user if they do not include any of the character arrays 
-  if(includeLower===false && includeUpper ===false && includeNumeric ===false && includeSpecial ===false){
+  // feedback to user if they do not include any of the character arrays. could have also used if po
+  if(possibleCharacters.length <1){
     alert("You must use characters in your password. Please click ok on at least one character group to generate another password.");
     return "You must use characters in your password. Please click ok on at least one character group to generate another password.";
   }
@@ -96,7 +89,7 @@ function generatePassword(){
   for(var j = securePassword.length; j < passwordLength; j++) {
     addCharsToSecurePassword(possibleCharacters);
   }
-  console.log(securePassword);
+
 
 
   // return randomly generated password from this generatePassword function
