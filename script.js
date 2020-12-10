@@ -16,8 +16,8 @@ function generatePassword(){
   var possibleCharacters = [];
   var securePassword = "";
   
-  // create arrays for each of the acceptable characters
-  var includeLower = true;
+  // create arrays for each of the acceptable characters //  defaulting to true but will be overridden by user confirm choices
+  var includeLower = true; 
   var lowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 
   var includeUpper = true;
@@ -36,7 +36,6 @@ function generatePassword(){
   }
 
 
-
   // define function to add each array of characters to the list of possible password characters 
   function addCharsToPossible(array) {
     for (var j = 0; j < array.length; j++) {
@@ -53,7 +52,8 @@ function generatePassword(){
     }
   
 
-// prompt user to include each array of characters
+  // prompt user to include each array of characters. If yes to include, then adds a letter from the array to the password to ensure 
+  // that character type is included in the final password. Then adds that character array to possible character for remaining password length.
   includeLower = confirm("Include lower case letters?");
   if(includeLower){
     addCharsToSecurePassword(lowerCase);
@@ -82,18 +82,15 @@ function generatePassword(){
   if(possibleCharacters.length <1){
     alert("You must use characters in your password. Please click ok on at least one character group to generate another password.");
     return "You must use characters in your password. Please click ok on at least one character group to generate another password.";
+  } 
+  else {
+    // for loop over array of possible characters for password to populate the rest of the securePassword based on passwordLength specified by user.
+    for(var j = securePassword.length; j < passwordLength; j++) {
+      addCharsToSecurePassword(possibleCharacters);
+    }
+    // return randomly generated password from this generatePassword function
+    return securePassword;
   }
-
-
-  // for loop over array of possible characters for password to populate the rest of the securePassword based on passwordLength specified by user.
-  for(var j = securePassword.length; j < passwordLength; j++) {
-    addCharsToSecurePassword(possibleCharacters);
-  }
-
-
-
-  // return randomly generated password from this generatePassword function
-  return securePassword;
 }
 
 // Add event listener to generate button
