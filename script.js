@@ -51,25 +51,37 @@ function generatePassword(){
     }
   }
 
+   // define function to add random character to to securePassword from given array
+   // using this to ensure one character from each required array is provided.
+   function addCharsToSecurePassword(array) {
+      var randomLetter = array[Math.floor(Math.random()*(array.length))]; //generate random character from possible characters list]
+      securePassword = securePassword + randomLetter;
+      return securePassword;
+    }
   
+
 // prompt user to include each array of characters
   includeLower = confirm("Include lower case letters?");
   if(includeLower){
+    addCharsToSecurePassword(lowerCase);
     addCharsToPossible(lowerCase);
   }
 
   includeUpper = confirm("Include upper case letters?");
   if(includeUpper){
+    addCharsToSecurePassword(upperCase);
     addCharsToPossible(upperCase);
   }
 
   includeNumeric = confirm("Include numbers?");
   if(includeNumeric){
+    addCharsToSecurePassword(numericChars);
     addCharsToPossible(numericChars);
   }
 
   includeSpecial = confirm("Include special characters?");
   if(includeSpecial){
+    addCharsToSecurePassword(specialChars);
     addCharsToPossible(specialChars);
   }
 
@@ -80,20 +92,11 @@ function generatePassword(){
   }
 
 
-  // for loop over array of possible characters for password length -3 number of times. last 3 characters will be reserved to ensure each requested character type is used
-  for(var j = 0; j < passwordLength-3; j++) {
-    var randomLetter = possibleCharacters[Math.floor(Math.random()*(possibleCharacters.length))]; //generate random character from possible characters list]
-    securePassword = securePassword + randomLetter;
+  // for loop over array of possible characters for password to populate the rest of the securePassword based on passwordLength specified by user.
+  for(var j = securePassword.length; j < passwordLength; j++) {
+    addCharsToSecurePassword(possibleCharacters);
   }
   console.log(securePassword);
-
-  // if(includeLower) {
-  //   for(var j = 0; j < securePassword.length; j++){
-  //     securePassword
-  //   }
-  // }
-
-
 
 
   // return randomly generated password from this generatePassword function
